@@ -15,8 +15,16 @@ def wordle():
     def enter_action(s):
         gw.show_message("You have to implement this method.")
 
+    def display_word(word):
+        for col in range(N_COLS):
+            gw.set_square_letter(0, col, word[col].upper())
+
     gw = WordleGWindow()
     gw.add_enter_listener(enter_action)
+
+    solution_word = random.choice(FIVE_LETTER_WORDS)
+
+    display_word(solution_word)
 
 # Startup code
 
