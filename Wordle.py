@@ -13,7 +13,10 @@ from WordleGraphics import WordleGWindow, N_COLS, N_ROWS
 def wordle():
 
     def enter_action(s):
-        gw.show_message("You have to implement this method.")
+        if s.upper() in FIVE_LETTER_WORDS:
+            gw.show_message("Valid word")
+        else:
+            gw.show_message("Not a valid word")
 
     # Jan 12 David - function to display whatever word is passed
     def display_word(word):
