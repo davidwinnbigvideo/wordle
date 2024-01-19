@@ -13,7 +13,7 @@ from WordleGraphics import WordleGWindow, N_COLS, N_ROWS
 def wordle():
 
     def enter_action(s):
-        if s.upper() in FIVE_LETTER_WORDS:
+        if s.lower() in FIVE_LETTER_WORDS:
             gw.show_message("Valid word")
         else:
             gw.show_message("Not a valid word")
