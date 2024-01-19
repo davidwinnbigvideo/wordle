@@ -22,20 +22,16 @@ def wordle():
             gw.show_message("Not a valid word")
 
     def process_word(word):
-        # Initialize variables to keep track of used letters
         used_letters = set()
 
         # Iterate through each column and compare letters
         for col in range(N_COLS):
             if word[col] == solution_word[col]:
-                # Correct letter in correct position
                 gw.set_square_color(gw.get_current_row(), col, CORRECT_COLOR)
             elif word[col] in solution_word and word[col] not in used_letters:
-                # Correct letter but in the wrong position
                 gw.set_square_color(gw.get_current_row(), col, PRESENT_COLOR)
                 used_letters.add(word[col])
             else:
-                # Incorrect letter
                 gw.set_square_color(gw.get_current_row(), col, MISSING_COLOR)
 
         # Update the current row
