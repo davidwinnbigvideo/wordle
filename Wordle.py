@@ -9,7 +9,10 @@ import random
 
 from WordleDictionary import FIVE_LETTER_WORDS
 from WordleGraphics import WordleGWindow, N_COLS, N_ROWS
-from WordleGraphics import CORRECT_COLOR, PRESENT_COLOR, MISSING_COLOR
+# from WordleGraphics import CORRECT_COLOR, PRESENT_COLOR, MISSING_COLOR
+CORRECT_COLOR = "#ADD8E6"
+PRESENT_COLOR = "#FFD700"
+MISSING_COLOR = "#999999"
 
 def wordle():
 
