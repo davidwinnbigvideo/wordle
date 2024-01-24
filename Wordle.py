@@ -19,42 +19,52 @@ def wordle():
     # Jan 18 Ethan - checks for valid word
     def enter_action(s):
         if s.lower() in FIVE_LETTER_WORDS:
-            # gw.show_message("Valid word")
             process_word(s.lower())
         else:
             gw.show_message("Not a valid word")
 
+    # Jan 24 David - Colors the images
     def process_word(word):
-        used_letters = set()
-
+        used_letters = []
+        row_count = 0
+        correct_letters = []
         # Iterate through each column and compare letters
         for col in range(N_COLS):
+            # Correct character if
             if word[col] == solution_word[col]:
                 gw.set_square_color(gw.get_current_row(), col, CORRECT_COLOR)
+                correct_letters.append(word[col])
+            # If there are duplicate charaters it handles it
+            elif solution_word.count(word[col]) == 3 and word[col] not in used_letters and correct_letters.count(word[col]) == 3:
+                gw.set_square_color(gw.get_current_row(), col, MISSING_COLOR)
+                used_letters.append(word[col])
+            elif solution_word.count(word[col]) == 2 and word[col] not in used_letters and correct_letters.count(word[col]) == 2:
+                gw.set_square_color(gw.get_current_row(), col, MISSING_COLOR)
+                used_letters.append(word[col])
+            elif solution_word.count(word[col]) == 1 and word[col] not in used_letters and word[col] in correct_letters:
+                gw.set_square_color(gw.get_current_row(), col, MISSING_COLOR)
+                used_letters.append(word[col])
+            # Wrong place, right character
             elif word[col] in solution_word and word[col] not in used_letters:
                 gw.set_square_color(gw.get_current_row(), col, PRESENT_COLOR)
-                used_letters.add(word[col])
+                used_letters.append(word[col])
+            # Wrong character
             else:
                 gw.set_square_color(gw.get_current_row(), col, MISSING_COLOR)
 
-        # Update the current row
-        gw.set_current_row(gw.get_current_row() + 1)
-
-        # Check if all letters are correctly guessed
-        if all(gw.get_square_color(gw.get_current_row() - 1, col) == CORRECT_COLOR for col in range(N_COLS)):
+        if all(gw.get_square_color(gw.get_current_row(), col) == CORRECT_COLOR for col in range(N_COLS)):
             gw.show_message("Congratulations! You guessed the word.")
-
+            return
+        row_count = row_count + 1
+        if row_count < 6:
+            gw.set_current_row(gw.get_current_row() + 1)
+        
+    # Creates game from our "mold"
     gw = WordleGWindow()
     gw.add_enter_listener(enter_action)
-
-    # Jan 18 David - This was for mission 1
-    # # Jan 12 David - function to display whatever word is passed
-    # def display_word(word):
-    #     for col in range(N_COLS):
-    #         gw.set_square_letter(0, col, word[col].upper())
-    # # Jan 12 David - Fetches a random word from the list and calls the display_word function
+    # solution_word = 'indie'
     solution_word = random.choice(FIVE_LETTER_WORDS)
-    # display_word(solution_word)
+    print(solution_word)
 
 # Startup code
 
