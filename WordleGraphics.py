@@ -100,13 +100,19 @@ class WordleGWindow:
                 ch = tke.upper()
             else:
                 ch = tke.char.upper()
-            if ch == "\b" or ch == "\007" or ch == "\177" or ch == "DELETE":
+
+            #Check the value of the key being pressed
+            keysym = tke.keysym
+            
+            print(f"Pressed key: {ch} (keysym : {keysym})")
+
+            if ch == "\b" or ch == "\007" or ch == "\177" or ch == "DELETE" or keysym == 'BackSpace':
                 self.show_message("")
                 if self._row < N_ROWS and self._col > 0:
                     self._col -= 1
                     sq = self._grid[self._row][self._col]
                     sq.set_letter(" ")
-            elif ch == "\r" or ch == "\n" or ch == "ENTER":
+            elif ch == "\r" or ch == "\n" or ch == "ENTER" or keysym == 'Return':
                 self.show_message("")
                 s = ""
                 for col in range(N_COLS):
